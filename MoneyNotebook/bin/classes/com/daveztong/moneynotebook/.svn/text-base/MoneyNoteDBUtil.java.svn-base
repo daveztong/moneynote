@@ -28,6 +28,7 @@ public class MoneyNoteDBUtil {
 
     private static final String TAG = MoneyNoteDBUtil.class.getSimpleName();
 
+
     private SQLiteOpenHelper dbHelper = null;
     private SQLiteDatabase db = null;
 
@@ -72,13 +73,9 @@ public class MoneyNoteDBUtil {
     /**
      * @Title: delete
      * @Description: Delete row according to a given id
-     * @param rowId delete row according to this rowId,if rowId = -1,then delete all records
+     * @param rowId delete row according to this rowId
      */
     public void delete(long rowId) {
-        if (rowId == -1) {
-            db.delete(MoneyNote.TABLE_NAME_MoneyNote, "1", null);
-            return;
-        }
         int count = db.delete(MoneyNote.TABLE_NAME_MoneyNote, MoneyNote._ID + " = " + rowId, null);
         Log.i(TAG, count + "row(s) affected.");
     }
@@ -112,7 +109,7 @@ public class MoneyNoteDBUtil {
      * @date Oct 25, 2013 4:50:55 PM
      * 
      */
-    private class MoneyNoteDBHelper extends SQLiteOpenHelper {
+    public class MoneyNoteDBHelper extends SQLiteOpenHelper {
 
         private static final String TYPE_TEXT = " TEXT";
         private static final String TYPE_REAL = " REAL";
@@ -120,8 +117,8 @@ public class MoneyNoteDBUtil {
         private static final int DATABASE_VERSION = 1;
         private static final String COMMA_SEP = ",";
         private static final String SQL_CREATE_TABLE = "CREATE TABLE " + MoneyNote.TABLE_NAME_MoneyNote + "(" + MoneyNote._ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP + MoneyNote.COLUMN_NAME_WHAT + TYPE_TEXT + COMMA_SEP + MoneyNote.COLUMN_NAME_PRICE
-                + TYPE_REAL + COMMA_SEP + MoneyNote.COLUMN_NAME_WHEN + TYPE_TEXT + ");";
+                + " INTEGER NOT NULL AUTOINCREMENT PRIMARY KEY" + COMMA_SEP + MoneyNote.COLUMN_NAME_WHAT + TYPE_TEXT + COMMA_SEP
+                + MoneyNote.COLUMN_NAME_PRICE + TYPE_REAL + COMMA_SEP + MoneyNote.COLUMN_NAME_WHEN + TYPE_TEXT + ");";
         private static final String SQL_DELETE_TABLE = "DROP TABLE IF EXISTS " + MoneyNote.TABLE_NAME_MoneyNote;
 
         /**

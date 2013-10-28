@@ -26,9 +26,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.daveztong.moneynotebook.AddNewActivity"
+            android:label="@string/title_activity_add_new" >
+        </activity>
     </application>
 
-    <!-- testing target -->
+    <!-- testing target: -->
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
         android:targetPackage="com.daveztong.moneynotebook" />

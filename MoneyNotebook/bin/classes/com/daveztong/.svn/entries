@@ -2,7 +2,7 @@
 
 dir
 6
-https://moneynotebook.googlecode.com/svn/trunk/MoneyNotebook/src
+https://moneynotebook.googlecode.com/svn/trunk/MoneyNotebook/src/com/daveztong
 https://moneynotebook.googlecode.com/svn
 
 
@@ -26,6 +26,6 @@ daveztong@gmail.com
 
 e171a2d3-bb38-a5d8-0b06-fe3308608ee1
 
-com
+moneynotebook
 dir
 

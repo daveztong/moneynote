@@ -4,5 +4,16 @@
     <string name="app_name">MoneyNotebook</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_add_new">新增记录</string>
+
+    <!-- activity_add_new.xml -->
+    <string name="btn_save_stay">保存并新增</string>
+    <string name="btn_save_return">保存并返回</string>
+    <string name="et_when">时间</string>
+    <string name="et_what">名称</string>
+    <string name="et_price">价格</string>
+
+    <!-- activity_main.xml -->
+    <string name="btn_new">新增</string>
 
 </resources>
