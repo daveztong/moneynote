@@ -35,7 +35,8 @@ public class MoneyNoteDBUtil {
      * @param ctx The context of the application
      */
     public MoneyNoteDBUtil(Context ctx) {
-        dbHelper = new MoneyNoteDBHelper(ctx);
+        if (dbHelper == null)
+            dbHelper = new MoneyNoteDBHelper(ctx);
     }
 
     /**
@@ -89,10 +90,11 @@ public class MoneyNoteDBUtil {
      * @param values to update
      * @param rowId
      */
-    public void update(ContentValues values, long rowId) {
+    public int update(ContentValues values, long rowId) {
         String whereClause = MoneyNote._ID + " = ?";
         int count = db.update(MoneyNote.TABLE_NAME_MoneyNote, values, whereClause, new String[] { String.valueOf(rowId) });
-        Log.i(TAG, count + "row(s) affected.");
+        Log.i(TAG, "Update: " + count + "row(s) affected.");
+        return count;
     }
 
     /**
@@ -102,7 +104,24 @@ public class MoneyNoteDBUtil {
      */
     public Cursor query() {
         Log.i(TAG, "Query all the data.");
-        return db.query(MoneyNote.TABLE_NAME_MoneyNote, null, null, null, null, null, null);
+        return db.query(MoneyNote.TABLE_NAME_MoneyNote, null, null, null, null, null, MoneyNote.COLUMN_NAME_WHEN + " desc");
+    }
+
+    /**
+      * @Title: getAllCost
+      * @Description: Get the sum of cost
+      * @return  cost
+      */ 
+    public double getAllCost() {
+        double cost = 0;
+        String sql = "select sum(" + MoneyNote.COLUMN_NAME_PRICE + ") from " + MoneyNote.TABLE_NAME_MoneyNote;
+        Cursor costCursor = db.rawQuery(sql, null);
+        if (costCursor != null) {
+            costCursor.moveToFirst();
+            cost = costCursor.getDouble(0);
+        }
+        Log.i(TAG, "<<<<SQL: " + sql + ">>>>----<<<Total Cost: " + cost + ">>>");
+        return cost;
     }
 
     /**

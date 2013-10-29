@@ -47,6 +47,7 @@
             android:text="@string/et_price" />
 
         <EditText
+            android:inputType="numberDecimal"
             android:id="@+id/et_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -93,6 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_bg"
             android:text="@string/btn_save_return" />
 
         <Button
@@ -100,6 +102,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_bg"
             android:text="@string/btn_save_stay" />
     </TableRow>
 

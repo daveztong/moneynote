@@ -9,11 +9,15 @@
     <!-- activity_add_new.xml -->
     <string name="btn_save_stay">保存并新增</string>
     <string name="btn_save_return">保存并返回</string>
+    <string name="btn_update_stay">更新并新增</string>
+    <string name="btn_update_return">更新并返回</string>
     <string name="et_when">时间</string>
     <string name="et_what">名称</string>
     <string name="et_price">价格</string>
 
     <!-- activity_main.xml -->
     <string name="btn_new">新增</string>
+    <string name="btn_del">删除</string>
+   <string name="btn_select_all">全选</string>
 
 </resources>

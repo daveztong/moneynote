@@ -1,22 +1,23 @@
-package com.daveztong.moneynotebook.test;
+package com.daveztong.moneynotebook;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-import com.daveztong.moneynotebook.MoneyNoteDBUtil;
-
 public class MoneyNoteLoader extends AsyncTaskLoader<Cursor> {
 
     public static final int LOADER_ID = 0;
     private static final String TAG = MoneyNoteLoader.class.getSimpleName();
-    
+
     private Cursor dataCursor = null;
-    private MoneyNoteDBUtil moneyNoteDBUtil = new MoneyNoteDBUtil(getContext());
+    private MoneyNoteDBUtil moneyNoteDBUtil = null;
 
     public MoneyNoteLoader(Context context) {
         super(context);
+        if (moneyNoteDBUtil == null) {
+            moneyNoteDBUtil = new MoneyNoteDBUtil(getContext());
+        }
     }
 
     @Override
@@ -24,7 +25,6 @@ public class MoneyNoteLoader extends AsyncTaskLoader<Cursor> {
         Log.i(TAG, "loadInBackground");
         moneyNoteDBUtil.open();
         Cursor cursor = moneyNoteDBUtil.query();
-        //moneyNoteDBUtil.close();
         return cursor;
     }
 
@@ -37,6 +37,8 @@ public class MoneyNoteLoader extends AsyncTaskLoader<Cursor> {
     public void deliverResult(Cursor data) {
         super.deliverResult(data);
         Log.i(TAG, "deliverResult");
+        
+        // must close the database
         moneyNoteDBUtil.close();
     }
 
@@ -48,7 +50,7 @@ public class MoneyNoteLoader extends AsyncTaskLoader<Cursor> {
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
-        if(dataCursor!=null)
+        if (dataCursor != null)
             deliverResult(dataCursor);
         else {
             forceLoad();

@@ -47,7 +47,6 @@ public class DBTest extends AndroidTestCase {
         dbUtil.open();
         Cursor cursor = dbUtil.query();
         if (cursor != null) {
-            cursor.moveToFirst();
             while (cursor.moveToNext()) {
                 // String msg = cursor.getString(1) + "##" + cursor.getDouble(2) + "##" + cursor.getString(3);
                 String msg = cursor.getString(0) + "--" + cursor.getString(1) + "--" + cursor.getDouble(2) + "--" + cursor.getString(3);
@@ -62,6 +61,13 @@ public class DBTest extends AndroidTestCase {
         MoneyNoteDBUtil dbUtil = new MoneyNoteDBUtil(getContext());
         dbUtil.open();
         dbUtil.delete(-1);
+        dbUtil.close();
+    }
+    
+    public void showCost(){
+        MoneyNoteDBUtil dbUtil = new MoneyNoteDBUtil(getContext());
+        dbUtil.open();
+        dbUtil.getAllCost();
         dbUtil.close();
     }
 

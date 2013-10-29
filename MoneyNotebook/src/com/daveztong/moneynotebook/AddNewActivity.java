@@ -21,6 +21,7 @@ public class AddNewActivity extends FragmentActivity {
     private static final String TAG = AddNewActivity.class.getSimpleName();
     private EditText etWhen, etWhat, etPrice;
     private Button saveNewItemStay, saveNewItemReturn;
+    private Long rowId = null;
 
     /**
      * @Title: getEtWhen
@@ -45,6 +46,31 @@ public class AddNewActivity extends FragmentActivity {
         SaveButtonClickListener listener = new SaveButtonClickListener();
         saveNewItemStay.setOnClickListener(listener);
         saveNewItemReturn.setOnClickListener(listener);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.support.v4.app.FragmentActivity#onResume()
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent incomingIntent = getIntent();
+        Bundle extras = incomingIntent.getExtras();
+
+        if (extras != null && extras.containsKey(MoneyNote.COLUMN_NAME_WHAT)) {
+            etWhat.setText(extras.getString(MoneyNote.COLUMN_NAME_WHAT));
+            etPrice.setText(extras.getDouble(MoneyNote.COLUMN_NAME_PRICE) + "");
+            etWhen.setText(extras.getString(MoneyNote.COLUMN_NAME_WHEN));
+            rowId = extras.getLong(MoneyNote._ID);
+        }
+
+        // 更新按钮名称
+        if (rowId != null) {
+            saveNewItemStay.setText(getString(R.string.btn_update_stay));
+            saveNewItemReturn.setText(getString(R.string.btn_update_return));
+        }
     }
 
     @Override
@@ -79,18 +105,26 @@ public class AddNewActivity extends FragmentActivity {
             String whenString = etWhen.getText().toString();
 
             if (TextUtils.isEmpty(whatString) || TextUtils.isEmpty(priceString) || TextUtils.isEmpty(whenString)) {
-                Toast.makeText(AddNewActivity.this, "内容不能为空", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddNewActivity.this, "内容不能为空", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            MoneyNoteDBUtil dbUtil = new MoneyNoteDBUtil(AddNewActivity.this);
-            dbUtil.open();
             ContentValues values = new ContentValues();
             values.put(MoneyNote.COLUMN_NAME_WHAT, whatString);
             values.put(MoneyNote.COLUMN_NAME_PRICE, priceString);
             values.put(MoneyNote.COLUMN_NAME_WHEN, whenString);
-            long rowId = dbUtil.insert(values);
-            Log.i(TAG, "新插入事项的rowId: " + rowId);
+            // 打开数据库
+            MoneyNoteDBUtil dbUtil = new MoneyNoteDBUtil(AddNewActivity.this);
+            dbUtil.open();
+
+            // 如果时更新
+            if (rowId != null) {
+                dbUtil.update(values, rowId);
+            } else {
+                long rowId = dbUtil.insert(values);
+                Log.i(TAG, "新增记录的rowId: " + rowId);
+            }
+            // 关闭数据库
             dbUtil.close();
 
             switch (v.getId()) {
