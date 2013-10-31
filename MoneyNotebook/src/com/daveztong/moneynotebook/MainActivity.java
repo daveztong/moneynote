@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +23,7 @@ public class MainActivity extends FragmentActivity implements LoaderCallbacks<Cu
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private ListView lvMoneyNoteItems;
-    private SimpleCursorAdapter cursorAdapter = null;
+    private MoneyNoteCursorAdapter cursorAdapter = null;
     private TextView tvTotalCost;
     private CheckBox delCheckBox;
 
@@ -46,8 +45,8 @@ public class MainActivity extends FragmentActivity implements LoaderCallbacks<Cu
     private void initView() {
 
         // 删除复选框
-        delCheckBox=(CheckBox) findViewById(R.id.del_chk);
-        
+        delCheckBox = (CheckBox) findViewById(R.id.del_chk);
+
         // 总支出
         tvTotalCost = (TextView) findViewById(R.id.tv_total_cost);
         MoneyNoteDBUtil dbUtil = new MoneyNoteDBUtil(this);
@@ -57,9 +56,10 @@ public class MainActivity extends FragmentActivity implements LoaderCallbacks<Cu
 
         lvMoneyNoteItems = (ListView) findViewById(R.id.lv_items);
 
-        String[] from = new String[] { MoneyNote.COLUMN_NAME_WHAT, MoneyNote.COLUMN_NAME_PRICE, MoneyNote.COLUMN_NAME_WHEN };
-        int[] to = new int[] { R.id.tv_what, R.id.tv_price, R.id.tv_when };
-        cursorAdapter = new SimpleCursorAdapter(this, R.layout.cp_money_note_item, null, from, to, 0);
+        // String[] from = new String[] { MoneyNote.COLUMN_NAME_WHAT, MoneyNote.COLUMN_NAME_PRICE, MoneyNote.COLUMN_NAME_WHEN };
+        // int[] to = new int[] { R.id.tv_what, R.id.tv_price, R.id.tv_when };
+        // cursorAdapter = new SimpleCursorAdapter(this, R.layout.cp_money_note_item, null, from, to, 0);
+        cursorAdapter = new MoneyNoteCursorAdapter(this, null, 0);
         lvMoneyNoteItems.setAdapter(cursorAdapter);
 
         // 单击列表项时，跳转至新增页面，并用列表项的数据对其进行填充
@@ -95,8 +95,10 @@ public class MainActivity extends FragmentActivity implements LoaderCallbacks<Cu
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
      */
     @Override

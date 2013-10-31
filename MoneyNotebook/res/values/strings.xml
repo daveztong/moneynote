@@ -18,6 +18,13 @@
     <!-- activity_main.xml -->
     <string name="btn_new">新增</string>
     <string name="btn_del">删除</string>
-   <string name="btn_select_all">全选</string>
+    <string name="btn_select_all">全选</string>
+
+    <!-- money_note_item.xml -->
+    <string name="img_default_alt">Image</string>
+    <string name="tv_when_label">时间:</string>
+    <string name="tv_price_label">价格:</string>
+    <string name="tv_what_label">名称:</string>
+    
 
 </resources>

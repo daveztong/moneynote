@@ -5,6 +5,7 @@
     android:padding="5dp" >
 
     <LinearLayout
+        android:id="@+id/ll_row_main_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -18,7 +19,7 @@
                 android:id="@+id/tv_what_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name:" />
+                android:text="@string/tv_what_label" />
 
             <TextView
                 android:id="@+id/tv_what"
@@ -35,7 +36,7 @@
                 android:id="@+id/tv_price_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Price:" />
+                android:text="@string/tv_price_label" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -52,7 +53,7 @@
                 android:id="@+id/tv_when_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="When:" />
+                android:text="@string/tv_when_label" />
 
             <TextView
                 android:id="@+id/tv_when"
@@ -60,6 +61,16 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/ll_row_main_info"
+        android:contentDescription="@string/img_default_alt"
+        android:src="@drawable/default_img" />
 
     <!--
          <LinearLayout
@@ -72,14 +83,14 @@
 
     <CheckBox
         android:id="@+id/del_chk"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:clickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        android:visibility="gone" />
     <!-- </LinearLayout> -->
 
 </RelativeLayout>

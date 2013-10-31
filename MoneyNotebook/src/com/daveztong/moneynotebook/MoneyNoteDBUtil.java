@@ -138,9 +138,12 @@ public class MoneyNoteDBUtil {
         private static final String DATABASE_NAME = "moneynote.db";
         private static final int DATABASE_VERSION = 1;
         private static final String COMMA_SEP = ",";
-        private static final String SQL_CREATE_TABLE = "CREATE TABLE " + MoneyNote.TABLE_NAME_MoneyNote + "(" + MoneyNote._ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP + MoneyNote.COLUMN_NAME_WHAT + TYPE_TEXT + COMMA_SEP + MoneyNote.COLUMN_NAME_PRICE
-                + TYPE_REAL + COMMA_SEP + MoneyNote.COLUMN_NAME_WHEN + TYPE_TEXT + ");";
+        private static final String SQL_CREATE_TABLE = "CREATE TABLE " + MoneyNote.TABLE_NAME_MoneyNote + "(" 
+        + MoneyNote._ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP 
+        + MoneyNote.COLUMN_NAME_WHAT + TYPE_TEXT + COMMA_SEP 
+        + MoneyNote.COLUMN_NAME_PRICE + TYPE_REAL + COMMA_SEP 
+        + MoneyNote.COLUMN_NAME_IMAGE_PATH + TYPE_TEXT + COMMA_SEP
+        + MoneyNote.COLUMN_NAME_WHEN + TYPE_TEXT + ");";
         private static final String SQL_DELETE_TABLE = "DROP TABLE IF EXISTS " + MoneyNote.TABLE_NAME_MoneyNote;
 
         /**

@@ -42,5 +42,6 @@ public final class MoneyNoteContract {
         public static final String COLUMN_NAME_WHAT = "what";
         public static final String COLUMN_NAME_PRICE = "price";
         public static final String COLUMN_NAME_WHEN = "what_time";
+        public static final String COLUMN_NAME_IMAGE_PATH  = "imagepath";
     }
 }
