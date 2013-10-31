@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.daveztong.moneynotebook.MoneyNoteContract.MoneyNote;
+import com.daveztong.moneynotebook.MoneyNoteCursorAdapter.ViewHolder;
 
 public class MainActivity extends FragmentActivity implements LoaderCallbacks<Cursor> {
 
@@ -67,18 +68,25 @@ public class MainActivity extends FragmentActivity implements LoaderCallbacks<Cu
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ViewHolder viewHolder = (ViewHolder) view.getTag();
+                String name = viewHolder.tvName.getText().toString();
+                double price = Double.valueOf(viewHolder.tvPrice.getText().toString());
+                String atWhen = viewHolder.tvWhen.getText().toString();
+
                 Cursor data = cursorAdapter.getCursor();
                 data.moveToPosition(position);
 
-                String name = data.getString(data.getColumnIndexOrThrow(MoneyNote.COLUMN_NAME_WHAT));
-                double price = data.getDouble(data.getColumnIndexOrThrow(MoneyNote.COLUMN_NAME_PRICE));
-                String atWhen = data.getString(data.getColumnIndexOrThrow(MoneyNote.COLUMN_NAME_WHEN));
+                // String name = data.getString(data.getColumnIndexOrThrow(MoneyNote.COLUMN_NAME_WHAT));
+                // double price = data.getDouble(data.getColumnIndexOrThrow(MoneyNote.COLUMN_NAME_PRICE));
+                // String atWhen = data.getString(data.getColumnIndexOrThrow(MoneyNote.COLUMN_NAME_WHEN));
+                String imagePath = data.getString(data.getColumnIndexOrThrow(MoneyNote.COLUMN_NAME_IMAGE_PATH));
                 long rowId = data.getLong(data.getColumnIndexOrThrow(MoneyNote._ID));
 
                 Bundle extras = new Bundle();
                 extras.putString(MoneyNote.COLUMN_NAME_WHAT, name);
                 extras.putDouble(MoneyNote.COLUMN_NAME_PRICE, price);
                 extras.putString(MoneyNote.COLUMN_NAME_WHEN, atWhen);
+                extras.putString(MoneyNote.COLUMN_NAME_IMAGE_PATH, imagePath);
                 extras.putLong(MoneyNote._ID, rowId);
 
                 Intent intent = new Intent(MainActivity.this, AddNewActivity.class);

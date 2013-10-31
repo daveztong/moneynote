@@ -47,13 +47,13 @@
             android:text="@string/et_price" />
 
         <EditText
-            android:inputType="numberDecimal"
             android:id="@+id/et_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:hint="@string/et_price" />
+            android:hint="@string/et_price"
+            android:inputType="numberDecimal" />
     </TableRow>
 
     <!-- When -->
@@ -104,6 +104,22 @@
             android:layout_weight="1"
             android:background="@drawable/btn_bg"
             android:text="@string/btn_save_stay" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="3dp" >
+
+        <ImageView
+            android:onClick="takePicture"
+            android:id="@+id/iv_new_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/img_default_alt"
+            android:src="@drawable/default_img" >
+        </ImageView>
     </TableRow>
 
 </TableLayout>

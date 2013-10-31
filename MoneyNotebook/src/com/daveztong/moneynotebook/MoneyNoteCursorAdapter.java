@@ -92,7 +92,7 @@ public class MoneyNoteCursorAdapter extends CursorAdapter {
 
     }
 
-    private class ViewHolder {
+    public class ViewHolder {
         TextView tvName, tvPrice, tvWhen;
         ImageView ivIcon;
         CheckBox chkDel;

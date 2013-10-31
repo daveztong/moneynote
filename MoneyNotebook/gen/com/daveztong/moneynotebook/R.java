@@ -28,30 +28,31 @@ public final class R {
         public static final int ic_launcher=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f080016;
-        public static final int batchOperation=0x7f080017;
-        public static final int btn_del=0x7f080008;
-        public static final int btn_select_all=0x7f080009;
+        public static final int action_settings=0x7f080017;
+        public static final int batchOperation=0x7f080018;
+        public static final int btn_del=0x7f080009;
+        public static final int btn_select_all=0x7f08000a;
         public static final int choose_date=0x7f080002;
-        public static final int del_chk=0x7f080012;
+        public static final int del_chk=0x7f080013;
         public static final int et_price=0x7f080001;
         public static final int et_what=0x7f080000;
-        public static final int iv_item=0x7f080011;
-        public static final int ll_main=0x7f080005;
-        public static final int ll_price=0x7f080014;
-        public static final int ll_row_main_info=0x7f08000a;
-        public static final int ll_what=0x7f080013;
-        public static final int ll_when=0x7f080015;
-        public static final int lv_items=0x7f080007;
+        public static final int iv_item=0x7f080012;
+        public static final int iv_new_item=0x7f080005;
+        public static final int ll_main=0x7f080006;
+        public static final int ll_price=0x7f080015;
+        public static final int ll_row_main_info=0x7f08000b;
+        public static final int ll_what=0x7f080014;
+        public static final int ll_when=0x7f080016;
+        public static final int lv_items=0x7f080008;
         public static final int saveNewItemReturn=0x7f080003;
         public static final int saveNewItemStay=0x7f080004;
-        public static final int tv_price=0x7f08000e;
-        public static final int tv_price_label=0x7f08000d;
-        public static final int tv_total_cost=0x7f080006;
-        public static final int tv_what=0x7f08000c;
-        public static final int tv_what_label=0x7f08000b;
-        public static final int tv_when=0x7f080010;
-        public static final int tv_when_label=0x7f08000f;
+        public static final int tv_price=0x7f08000f;
+        public static final int tv_price_label=0x7f08000e;
+        public static final int tv_total_cost=0x7f080007;
+        public static final int tv_what=0x7f08000d;
+        public static final int tv_what_label=0x7f08000c;
+        public static final int tv_when=0x7f080011;
+        public static final int tv_when_label=0x7f080010;
     }
     public static final class layout {
         public static final int activity_add_new=0x7f030000;

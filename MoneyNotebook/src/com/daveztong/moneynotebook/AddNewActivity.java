@@ -4,7 +4,9 @@ import com.daveztong.moneynotebook.MoneyNoteContract.MoneyNote;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -14,13 +16,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class AddNewActivity extends FragmentActivity {
 
     private static final String TAG = AddNewActivity.class.getSimpleName();
+    private static final int  CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private EditText etWhen, etWhat, etPrice;
     private Button saveNewItemStay, saveNewItemReturn;
+    private ImageView ivNewItem;
     private Long rowId = null;
 
     /**
@@ -40,6 +45,7 @@ public class AddNewActivity extends FragmentActivity {
         etWhen = (EditText) findViewById(R.id.choose_date);
         etWhat = (EditText) findViewById(R.id.et_what);
         etPrice = (EditText) findViewById(R.id.et_price);
+        ivNewItem = (ImageView) findViewById(R.id.iv_new_item);
 
         saveNewItemStay = (Button) findViewById(R.id.saveNewItemStay);
         saveNewItemReturn = (Button) findViewById(R.id.saveNewItemReturn);
@@ -63,6 +69,13 @@ public class AddNewActivity extends FragmentActivity {
             etWhat.setText(extras.getString(MoneyNote.COLUMN_NAME_WHAT));
             etPrice.setText(extras.getDouble(MoneyNote.COLUMN_NAME_PRICE) + "");
             etWhen.setText(extras.getString(MoneyNote.COLUMN_NAME_WHEN));
+            String imgPath = extras.getString(MoneyNote.COLUMN_NAME_IMAGE_PATH);
+            if ("".equals(imgPath) || imgPath == null) {
+                ivNewItem.setImageResource(R.drawable.default_img);
+            } else {
+                ivNewItem.setImageURI(Uri.parse(imgPath));
+                CameraHelper.curImgPath = imgPath;
+            }
             rowId = extras.getLong(MoneyNote._ID);
         }
 
@@ -110,6 +123,7 @@ public class AddNewActivity extends FragmentActivity {
             }
 
             ContentValues values = new ContentValues();
+            values.put(MoneyNote.COLUMN_NAME_IMAGE_PATH, CameraHelper.curImgPath);
             values.put(MoneyNote.COLUMN_NAME_WHAT, whatString);
             values.put(MoneyNote.COLUMN_NAME_PRICE, priceString);
             values.put(MoneyNote.COLUMN_NAME_WHEN, whenString);
@@ -141,6 +155,24 @@ public class AddNewActivity extends FragmentActivity {
             default:
                 break;
             }
+        }
+    }
+
+    public void takePicture(View view) {
+        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        CameraHelper cameraHelper = new CameraHelper(this);
+        Uri imgUri = cameraHelper.getOutputMediaFileUri(CameraHelper.MEDIA_TYPE_IMAGE);
+        CameraHelper.tempPath = imgUri.toString();
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
+        startActivityForResult(openCameraIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(RESULT_OK == resultCode && requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+            CameraHelper.curImgPath = CameraHelper.tempPath;
+            ivNewItem.setImageURI(Uri.parse(CameraHelper.tempPath));
         }
     }
 }
