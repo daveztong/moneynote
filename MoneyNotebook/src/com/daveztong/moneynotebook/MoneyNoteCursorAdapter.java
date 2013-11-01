@@ -10,7 +10,7 @@ package com.daveztong.moneynotebook;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,8 +86,11 @@ public class MoneyNoteCursorAdapter extends CursorAdapter {
         viewHolder.tvName.setText(name);
         viewHolder.tvPrice.setText(price);
         viewHolder.tvWhen.setText(when);
-        if (!"".equals(imagepath) && imagepath != null)
-            viewHolder.ivIcon.setImageURI(Uri.parse(imagepath));
+        if (!"".equals(imagepath) && imagepath != null) {
+            imagepath = imagepath.substring(7);
+            Bitmap bmp = BitmapHelper.decodeSampledBitmapFromFile(imagepath, 50, 50);
+            viewHolder.ivIcon.setImageBitmap(bmp);
+        }
         viewHolder.chkDel.setChecked(false);
 
     }

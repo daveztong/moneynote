@@ -132,11 +132,9 @@
 
         <ImageView
             android:id="@+id/iv_new_item"
-            android:adjustViewBounds="true"
             android:contentDescription="@string/img_default_alt"
-            android:cropToPadding="true"
-            android:maxHeight="250dp"
-            android:maxWidth="250dp"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
             android:onClick="takePicture"
             android:src="@drawable/default_img" >
         </ImageView>

@@ -11,6 +11,7 @@ package com.daveztong.moneynotebook.test;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.test.AndroidTestCase;
@@ -30,6 +31,7 @@ public class DBTest extends AndroidTestCase {
 
     private static final String TAG = DBTest.class.getSimpleName();
 
+    @SuppressLint("SimpleDateFormat")
     public void initData() {
         MoneyNoteDBUtil dbUtil = new MoneyNoteDBUtil(getContext());
 

@@ -23,7 +23,6 @@ public class CameraHelper {
 
     private Context mContext;
     public static String curImgPath = "";
-    public static String tempPath = "";
 
     public CameraHelper(Context context) {
         this.mContext = context;

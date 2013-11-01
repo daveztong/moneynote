@@ -4,6 +4,7 @@ import com.daveztong.moneynotebook.MoneyNoteContract.MoneyNote;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 public class AddNewActivity extends FragmentActivity {
 
     private static final String TAG = AddNewActivity.class.getSimpleName();
-    private static final int  CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private EditText etWhen, etWhat, etPrice;
     private Button saveNewItemStay, saveNewItemReturn;
     private ImageView ivNewItem;
@@ -47,8 +48,8 @@ public class AddNewActivity extends FragmentActivity {
         etPrice = (EditText) findViewById(R.id.et_price);
         ivNewItem = (ImageView) findViewById(R.id.iv_new_item);
 
-        saveNewItemStay = (Button) findViewById(R.id.saveNewItemStay);
-        saveNewItemReturn = (Button) findViewById(R.id.saveNewItemReturn);
+        saveNewItemStay = (Button) findViewById(R.id.save_new_item__stay);
+        saveNewItemReturn = (Button) findViewById(R.id.save_new_item_return);
         SaveButtonClickListener listener = new SaveButtonClickListener();
         saveNewItemStay.setOnClickListener(listener);
         saveNewItemReturn.setOnClickListener(listener);
@@ -73,8 +74,9 @@ public class AddNewActivity extends FragmentActivity {
             if ("".equals(imgPath) || imgPath == null) {
                 ivNewItem.setImageResource(R.drawable.default_img);
             } else {
-                ivNewItem.setImageURI(Uri.parse(imgPath));
                 CameraHelper.curImgPath = imgPath;
+                Bitmap bm = BitmapHelper.decodeSampledBitmapFromFile(imgPath.substring(7), 100, 100);
+                ivNewItem.setImageBitmap(bm);
             }
             rowId = extras.getLong(MoneyNote._ID);
         }
@@ -142,12 +144,12 @@ public class AddNewActivity extends FragmentActivity {
             dbUtil.close();
 
             switch (v.getId()) {
-            case R.id.saveNewItemStay:
+            case R.id.save_new_item__stay:
                 etWhat.setText("");
                 etPrice.setText("");
                 etWhen.setText("");
                 break;
-            case R.id.saveNewItemReturn:
+            case R.id.save_new_item_return:
                 Intent intent = new Intent(AddNewActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -162,17 +164,18 @@ public class AddNewActivity extends FragmentActivity {
         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         CameraHelper cameraHelper = new CameraHelper(this);
         Uri imgUri = cameraHelper.getOutputMediaFileUri(CameraHelper.MEDIA_TYPE_IMAGE);
-        CameraHelper.tempPath = imgUri.toString();
+        CameraHelper.curImgPath = imgUri.toString();
         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(openCameraIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(RESULT_OK == resultCode && requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
-            CameraHelper.curImgPath = CameraHelper.tempPath;
-            ivNewItem.setImageURI(Uri.parse(CameraHelper.tempPath));
+        if (RESULT_OK == resultCode && requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            ivNewItem.setImageURI(Uri.parse(CameraHelper.curImgPath));
+        } else if (RESULT_CANCELED == resultCode && requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CameraHelper.curImgPath = "";
         }
     }
 }

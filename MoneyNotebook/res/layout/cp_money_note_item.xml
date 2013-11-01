@@ -69,6 +69,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/ll_row_main_info"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
         android:contentDescription="@string/img_default_alt"
         android:src="@drawable/default_img" />
 
